@@ -25,7 +25,7 @@ photographerRouter.get('/',authenticate,athorization(["client","admin","photogra
       .skip(skip)
       .limit(limit);
 
-    res.json({photographers});
+    res.status(200).json({t_pages: totalPages, photographers});
   } catch (error) {
     res.status(500).json({ error: 'Internal server error', message: error.message });
   }
