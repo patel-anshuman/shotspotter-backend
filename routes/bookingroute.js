@@ -19,20 +19,19 @@ const {authenticate}=require("../middleware/authenticate")
 // Create a new booking
 bookingRouter.post('/',authenticate,athorization(["client"]), async (req, res) => {
   try {
-    const {photographerId, customerContact, startTime, endTime } = req.body;
+    const {client, photographer, customerContact, startTime, endTime } = req.body;
     // const client = req.body.client;
     //console.log(req.body)
     //decode logic
     const booking = new Booking({
       customerContact,
-      client:req.body.client,
-      photographer:photographerId,
-      startTime: new Date(startTime),
-      endTime:new Date(endTime)
-
+      client,
+      photographer,
+      startTime,
+      endTime,
+      status: "pending"
     });
 
-    
     // Save the booking to the database
     await booking.save();
 
